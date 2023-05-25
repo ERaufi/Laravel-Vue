@@ -24,33 +24,38 @@
 
 <body>
     <div id="app">
-        <!--Topbar -->
-        @include('layouts.Navbar')
 
-        <!--Sidebar-->
-        @include('layouts.Sidebar')
-        <!-- End Sidebar-->
-
-
-        <div class="sidebar-overlay"></div>
-
-
-        <!--Content Start-->
-        <div class="content-start transition">
+        @if (Request::path() === 'register')
             @yield('content')
-        </div>
+        @else
+            <!--Topbar -->
+            @include('layouts.Navbar')
+
+            <!--Sidebar-->
+            @include('layouts.Sidebar')
+            <!-- End Sidebar-->
 
 
-        <!-- Footer -->
-        @include('layouts.Footer')
+            <div class="sidebar-overlay"></div>
 
 
-        <!-- Preloader -->
-        <div class="loader">
-            <div class="spinner-border text-light" role="status">
-                <span class="sr-only">Loading...</span>
+            <!--Content Start-->
+            <div class="content-start transition">
+                @yield('content')
             </div>
-        </div>
+
+
+            <!-- Footer -->
+            @include('layouts.Footer')
+
+
+            <!-- Preloader -->
+            <div class="loader">
+                <div class="spinner-border text-light" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        @endif
     </div>
     <!-- Loader -->
     <div class="loader-overlay"></div>
@@ -64,8 +69,8 @@
     <script src="{{ asset('assets/modules/popper/popper.min.js') }}"></script>
 
     <!-- Chart Js -->
-    <script src="{{ asset('assets/modules/apexcharts/apexcharts.js') }}"></script>
-    <script src="{{ asset('assets/js/ui-apexcharts.js') }}"></script>
+    {{-- <script src="{{ asset('assets/modules/apexcharts/apexcharts.js') }}"></script>
+    <script src="{{ asset('assets/js/ui-apexcharts.js') }}"></script> --}}
 
     <!-- Template JS File -->
     <script src="{{ asset('assets/js/script.js') }}"></script>
