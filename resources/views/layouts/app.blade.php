@@ -25,7 +25,7 @@
 <body>
     <div id="app">
 
-        @if (Request::path() === 'register')
+        @if (Request::path() === 'register' || Request::path() === 'login')
             @yield('content')
         @else
             <!--Topbar -->
