@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TeachersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('teachres', [TeachersController::class, 'getData']);
+    Route::post('add_teacher', [TeachersController::class, 'create']);
+    Route::delete('delete_teacher/{id}', [TeachersController::class, 'delete']);
+
+    Route::get('get_teacher/{id}', [TeachersController::class, 'getTeacher']);
+
+    Route::post('update_teacher/{id}', [TeachersController::class, 'update']);
 });

@@ -69,7 +69,8 @@ export default {
                 email: this.email,
                 password: this.password,
             }).then((response) => {
-                localStorage.setItem('token', response.data.token);
+                console.log(response);
+                localStorage.setItem('token', response.data);
                 location.href = '/';
             }).catch((error) => {
                 console.log(error);

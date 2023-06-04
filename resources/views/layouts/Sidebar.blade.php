@@ -14,6 +14,9 @@
                     <li>
                         <router-link to="/about">About</router-link>
                     </li>
+                    <li>
+                        <router-link to="/teachers">Teachers</router-link>
+                    </li>
                     <!-- Divider-->
                     <li class="divider" data-text="STARTER">STARTER</li>
 
