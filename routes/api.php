@@ -27,4 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get_teacher/{id}', [TeachersController::class, 'getTeacher']);
 
     Route::post('update_teacher/{id}', [TeachersController::class, 'update']);
+
+
+    Route::get('user',[AuthController::class,'getUser']);
+
 });

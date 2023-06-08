@@ -35,6 +35,23 @@
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
+
+
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input type="password" class="form-control form-control-xl" v-model="confirmPassword"
+                                placeholder="Password">
+                            <div class="form-control-icon">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input type="file" class="form-control form-control-xl" accept="image/*" ref="photo">
+                            <div class="form-control-icon">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                        </div>
+
                         <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Sign Up</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
@@ -50,21 +67,32 @@
 
 <script>
 import axios from 'axios';
-
+import { defineComponent, ref } from 'vue';
 export default {
-    data() {
-        return {
-            email: '',
-            name: '',
-            password: '',
-        }
-    },
-    methods: {
-        register() {
-            axios.post('api/register', {
-                email: this.email,
-                name: this.name,
-                password: this.password,
+    setup() {
+        const email = ref('');
+        const name = ref('');
+        const password = ref('');
+        const confirmPassword = ref('');
+        const photo = ref(null);
+
+
+        function register() {
+            if (password.value !== confirmPassword.value) {
+                alert('Password od not match');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('email', email.value);
+            formData.append('name', name.value);
+            formData.append('password', password.value);
+            formData.append('password_confirmation', confirmPassword.value);
+            formData.append('photo', photo.value.files[0]);
+            axios.post('api/register', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             }).then((response) => {
                 console.log(response);
                 localStorage.setItem('token', response.data.token);
@@ -72,7 +100,39 @@ export default {
             }).catch((error) => {
                 console.log(error);
             })
+
+        }
+
+        return {
+            email,
+            name,
+            password,
+            confirmPassword,
+            photo,
+            register,
         }
     }
+    // data() {
+    //     return {
+    //         email: '',
+    //         name: '',
+    //         password: '',
+    //     }
+    // },
+    // methods: {
+    //     register() {
+    //         axios.post('api/register', {
+    //             email: this.email,
+    //             name: this.name,
+    //             password: this.password,
+    //         }).then((response) => {
+    //             console.log(response);
+    //             localStorage.setItem('token', response.data.token);
+    //             location.href = '/';
+    //         }).catch((error) => {
+    //             console.log(error);
+    //         })
+    //     }
+    // }
 }
 </script>

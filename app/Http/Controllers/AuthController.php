@@ -12,10 +12,21 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $request->validate([
+            'email' => 'required',
+            'name' => 'required',
+            'password' => 'required|confirmed',
+            'photo' => 'required',
+        ]);
+
+        $imageName = $request->photo->getClientOriginalName();
+        $request->photo->move(public_path('images'), $imageName);
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->photo = 'images/' . $imageName;
         $user->save();
 
         $token = $user->createToken('vue')->plainTextToken;
@@ -36,5 +47,12 @@ class AuthController extends Controller
 
             return response()->json($token, 200);
         }
+    }
+
+    public function getUser()
+    {
+        $item = User::latest()->first();
+
+        return $item;
     }
 }
