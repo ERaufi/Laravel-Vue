@@ -28,33 +28,41 @@
 
 <script>
 import axios from 'axios';
+import { defineComponent, ref } from 'vue';
+import { useRouter } from "vue-router";
 
 export default {
-    data() {
-        return {
-            name: null,
-            email: null,
-            phone: null,
-            salary: null,
-        }
-    },
-    methods: {
-        addTeacher() {
+    setup() {
+        const name = ref('');
+        const email = ref('');
+        const phone = ref('');
+        const salary = ref('');
+        const router = useRouter();
+
+        function addTeacher() {
             axios.post(`api/add_teacher`, {
-                name: this.name,
-                email: this.email,
-                phone: this.phone,
-                salary: this.salary,
+                name: name.value,
+                email: email.value,
+                phone: phone.value,
+                salary: salary.value,
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             }).then((res) => {
                 console.log(res);
-                this.$router.push('/teachers');
+                router.push('/teachers');
             }).catch((error) => {
                 console.log(error);
             })
+        }
+
+        return {
+            name,
+            email,
+            phone,
+            salary,
+            addTeacher,
         }
     }
 }

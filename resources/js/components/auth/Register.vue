@@ -112,27 +112,5 @@ export default {
             register,
         }
     }
-    // data() {
-    //     return {
-    //         email: '',
-    //         name: '',
-    //         password: '',
-    //     }
-    // },
-    // methods: {
-    //     register() {
-    //         axios.post('api/register', {
-    //             email: this.email,
-    //             name: this.name,
-    //             password: this.password,
-    //         }).then((response) => {
-    //             console.log(response);
-    //             localStorage.setItem('token', response.data.token);
-    //             location.href = '/';
-    //         }).catch((error) => {
-    //             console.log(error);
-    //         })
-    //     }
-    // }
 }
 </script>
